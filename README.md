@@ -10,7 +10,7 @@ cargo install cryptop
 
 ## Usage
 
-### Get currency price:
+### Get currency price
 ```
 cryptop --currency "<currency ticker>"
 ```
@@ -19,7 +19,7 @@ Example
 cryptop --currency "BTC"
 ```
 
-###Get currency price at a specified rate:
+### Get currency price at a specified rate
 ```
 cryptop --currency "<currency ticker>" --rates "<rate>"
 ```
