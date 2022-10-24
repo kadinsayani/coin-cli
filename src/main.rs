@@ -1,17 +1,33 @@
 use clap::Parser;
+use reqwest::Response;
+use std::error::Error;
 
 #[derive(Parser)]
 struct Cli {
-    pattern: String,
-    path: std::path::PathBuf,
+    command: String,
 }
 
-fn main() {
+struct Coin {
+    id: String,
+    symbol: String,
+    name: String,
+}
+
+fn main() -> Result<(), Box<dyn Error>> {
     let args = Cli::parse();
-    let content = std::fs::read_to_string(&args.path).expect("could not read file");
-    for line in content.lines() {
-        if line.contains(&args.pattern) {
-            println!("{}", line);
+    let command = args.command;
+    if command == "list" {
+        let response = reqwest::blocking::get("https://api.coingecko.com/api/v3/coins/list")?;
+        let coins = parse_coins(response)?;
+        for coin in coins {
+            println!("{} - {}", coin.id, coin.name);
         }
     }
+    Ok(())
+}
+
+fn parse_coins(response: Response) -> Result<Vec<Coin>, Box<dyn Error>> {
+    let body = response.text()?;
+    let coins: Vec<Coin> = serde_json::from_str(&body)?;
+    Ok(coins)
 }
