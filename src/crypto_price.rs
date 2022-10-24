@@ -22,7 +22,7 @@ pub struct CoinPrice {
 #[derive(Parser, Debug)]
 #[clap(
     author,
-    version = "0.1.2",
+    version = "0.1.3",
     about = "cryptop - Command Line Interface for getting cryptocurrency prices and information."
 )]
 struct Cli {
