@@ -23,7 +23,7 @@ pub struct CoinPrice {
 #[clap(
     author,
     version = "0.1.0",
-    about = "coin-cli - Command Line Interface for getting cryptocurrency prices and information."
+    about = "cryptop - Command Line Interface for getting cryptocurrency prices and information."
 )]
 struct Cli {
     #[clap(short, long, default_value = "BTC")]
