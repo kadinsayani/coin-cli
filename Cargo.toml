@@ -6,8 +6,8 @@ authors = ["Kadin Sayani <kadinsayani8@gmail.com>"]
 description = "Command Line Interface for getting cryptocurrency prices and information."
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/kadinsayani/coin-cli"
-repository = "https://github.com/kadinsayani/coin-cli"
+homepage = "https://github.com/kadinsayani/cryptop"
+repository = "https://github.com/kadinsayani/cryptop"
 keywords = ["cli", "crypto"]
 categories = ["command-line-utilities"]
 
