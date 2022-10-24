@@ -4,6 +4,9 @@ use serde::{Deserialize, Serialize};
 extern crate reqwest;
 use reqwest::Client;
 
+extern crate clap;
+use clap::Parser;
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CoinbasePrice {
     pub data: CoinPrice,
@@ -16,27 +19,52 @@ pub struct CoinPrice {
     pub amount: String,
 }
 
-#[tokio::main]
-pub async fn crypto_price() -> Result<(), Box<dyn std::error::Error>> {
-    let spot_url = format!(
-        "https://api.coinbase.com/v2/prices/{currency}-{rates}/spot",
-        currency = "BTC",
-        rates = "USD"
-    );
+#[derive(Parser, Debug)]
+#[clap(
+    author,
+    version = "0.1.0",
+    about = "coin-cli - Command Line Interface for getting cryptocurrency prices and information."
+)]
+struct Cli {
+    #[clap(short, long, default_value = "BTC")]
+    currency: String,
+    #[clap(short, long, default_value = "USD")]
+    rates: String,
+}
 
-    let resp_spot_price = Client::new()
-        .get(&spot_url)
+pub fn crypto_price() {
+    let args = Cli::parse();
+
+    let currency = &args.currency;
+    let rates = &args.rates;
+
+    let spot_price = get_coin_price("spot".to_string(), currency.to_string(), rates.to_string());
+    println!(
+        "{}-{} Spot Price: {:?}",
+        currency.to_string(),
+        rates.to_string(),
+        spot_price.unwrap()
+    );
+}
+
+#[tokio::main]
+async fn get_coin_price(
+    request_type: String,
+    request_currency: String,
+    request_rates: String,
+) -> Result<std::string::String, Box<dyn std::error::Error>> {
+    let request_url = format!("https://api.coinbase.com/v2/prices/{currency}-{rates}/{type}",
+        currency = request_currency,
+        rates = request_rates,
+        type = request_type);
+
+    let client = Client::new();
+    let resp_price = client
+        .get(&request_url)
         .send()
         .await?
         .json::<CoinbasePrice>()
         .await?;
 
-    println!(
-        "SPOT: {base}-{currency}: {amount}",
-        base = resp_spot_price.data.base,
-        currency = resp_spot_price.data.currency,
-        amount = resp_spot_price.data.amount
-    );
-
-    Ok(())
+    Ok(resp_price.data.amount)
 }

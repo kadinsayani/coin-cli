@@ -2,6 +2,14 @@
 name = "coin-cli"
 version = "0.1.0"
 edition = "2021"
+authors = ["Kadin Sayani <kadinsayani8@gmail.com>"]
+description = "Command Line Interface for getting cryptocurrency prices and information."
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/kadinsayani/coin-cli"
+repository = "https://github.com/kadinsayani/coin-cli"
+keywords = ["cli", "crypto"]
+categories = ["command-line-utilities"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
