@@ -23,24 +23,24 @@ pub struct CoinPrice {
 #[clap(
     author,
     version = "0.1.4",
-    about = "cryptop - Command Line Interface for getting cryptocurrency prices and information."
+    about = "cryptop - Command Line Interface for getting cryptocurrency prices and information." // description
 )]
 struct Cli {
     #[clap(short, long, default_value = "BTC")]
-    currency: String,
+    currency: String, // -c, --currency
     #[clap(short, long, default_value = "USD")]
-    rates: String,
+    rates: String, // -r, --rates
 }
 
 pub fn crypto_price() {
-    let args = Cli::parse();
+    let args = Cli::parse(); // Parse the command line arguments
 
-    let currency = &args.currency;
-    let rates = &args.rates;
+    let currency = &args.currency; // Get the currency
+    let rates = &args.rates; // Get the rates
 
     let spot_price = get_coin_price("spot".to_string(), currency.to_string(), rates.to_string());
     println!(
-        "{}-{} Spot Price: {:?}",
+        "{}-{} Current Price: {:?}", // Print the current price
         currency.to_string(),
         rates.to_string(),
         spot_price.unwrap()
