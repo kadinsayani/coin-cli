@@ -19,10 +19,20 @@ pub struct CoinPrice {
     pub amount: String,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Time {
+    pub data: PriceTime,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct PriceTime {
+    pub iso: String,
+}
+
 #[derive(Parser, Debug)]
 #[clap(
     author,
-    version = "0.1.4",
+    version = "0.1.5",
     about = "cryptop - Command Line Interface for getting cryptocurrency prices and information." // description
 )]
 struct Cli {
@@ -45,6 +55,9 @@ pub fn crypto_price() {
         rates.to_string(),
         spot_price.unwrap()
     );
+
+    let price_time = get_time();
+    println!("Time: {}", price_time.unwrap())
 }
 
 #[tokio::main]
@@ -53,18 +66,32 @@ async fn get_coin_price(
     request_currency: String,
     request_rates: String,
 ) -> Result<std::string::String, Box<dyn std::error::Error>> {
-    let request_url = format!("https://api.coinbase.com/v2/prices/{currency}-{rates}/{type}",
+    let request_url_spot = format!("https://api.coinbase.com/v2/prices/{currency}-{rates}/{type}",
         currency = request_currency,
         rates = request_rates,
         type = request_type);
 
     let client = Client::new();
     let resp_price = client
-        .get(&request_url)
+        .get(&request_url_spot)
         .send()
         .await?
         .json::<CoinbasePrice>()
         .await?;
 
     Ok(resp_price.data.amount)
+}
+
+#[tokio::main]
+async fn get_time() -> Result<std::string::String, Box<dyn std::error::Error>> {
+    let request_url_time = format!("https://api.coinbase.com/v2/time");
+    let client = Client::new();
+    let resp_time = client
+        .get(&request_url_time)
+        .send()
+        .await?
+        .json::<Time>()
+        .await?;
+
+    Ok(resp_time.data.iso)
 }
