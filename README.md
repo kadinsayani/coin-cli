@@ -10,8 +10,9 @@ cargo install cryptop
 
 ## Usage
 
-cryptop - Command Line Interface for getting cryptocurrency prices and information.
 ```
+cryptop - Command Line Interface for getting cryptocurrency prices and information.
+
 Usage: cryptop [OPTIONS]
 
 Options:
