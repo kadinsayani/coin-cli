@@ -10,20 +10,14 @@ cargo install cryptop
 
 ## Usage
 
-### Get currency price
+cryptop - Command Line Interface for getting cryptocurrency prices and information.
 ```
-cryptop --currency "<currency ticker>"
-```
-Example
-```
-cryptop --currency "BTC"
+Usage: cryptop [OPTIONS]
+
+Options:
+  -c, --currency <CURRENCY>  [default: BTC]
+  -r, --rates <RATES>        [default: USD]
+  -h, --help                 Print help information
+  -V, --version              Print version information
 ```
 
-### Get currency price at a specified rate
-```
-cryptop --currency "<currency ticker>" --rates "<rate>"
-```
-Example
-```
-cryptop --currency "BTC" --rates "CAD"
-```
