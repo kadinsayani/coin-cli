@@ -90,7 +90,9 @@ async fn get_coin_price(
 
     sleep(Duration::from_secs(1));
 
-    pb.finish_with_message("Current price retrieved");
+    pb.finish_with_message("\n");
+    println!("Current price retrieved ✅");
+    ("💰 Current price retrieved");
 
     Ok(resp_price.data.amount)
 }
