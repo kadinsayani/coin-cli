@@ -30,7 +30,7 @@ pub struct PriceTime {
 #[derive(Parser, Debug)]
 #[clap(
     author,
-    version = "0.1.8",
+    version = "0.1.9",
     about = "cryptop - Command Line Interface for getting cryptocurrency prices and information." // description
 )]
 struct Cli {
