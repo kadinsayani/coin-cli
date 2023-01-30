@@ -1,7 +1,7 @@
 [package]
 name = "cryptop"
-version = "0.1.7"
-edition = "2021"
+version = "0.1.8"
+edition = "2023"
 authors = ["Kadin Sayani <kadinsayani8@gmail.com>"]
 description = "Command Line Interface for getting cryptocurrency prices and information."
 license = "MIT"

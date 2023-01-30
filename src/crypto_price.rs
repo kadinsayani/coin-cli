@@ -1,11 +1,6 @@
-extern crate serde;
-use serde::{Deserialize, Serialize};
-
-extern crate reqwest;
-use reqwest::Client;
-
-extern crate clap;
 use clap::Parser;
+use reqwest::Client;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CoinbasePrice {
@@ -32,7 +27,7 @@ pub struct PriceTime {
 #[derive(Parser, Debug)]
 #[clap(
     author,
-    version = "0.1.7",
+    version = "0.1.8",
     about = "cryptop - Command Line Interface for getting cryptocurrency prices and information." // description
 )]
 struct Cli {
@@ -43,6 +38,7 @@ struct Cli {
 }
 
 pub fn crypto_price() {
+    println!("Welcome to the Cryptop CLI!");
     let args = Cli::parse(); // Parse the command line arguments
 
     let currency = &args.currency; // Get the currency
