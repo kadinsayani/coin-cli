@@ -1,6 +1,9 @@
 use clap::Parser;
+use indicatif::{ProgressBar, ProgressStyle};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
+use std::thread::sleep;
+use std::time::Duration;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct CoinbasePrice {
@@ -38,7 +41,6 @@ struct Cli {
 }
 
 pub fn crypto_price() {
-    println!("Welcome to the Cryptop CLI!");
     let args = Cli::parse(); // Parse the command line arguments
 
     let currency = &args.currency; // Get the currency
@@ -67,6 +69,17 @@ async fn get_coin_price(
         rates = request_rates,
         type = request_type);
 
+    let pb = ProgressBar::new(100);
+
+    match ProgressStyle::default_spinner().template("{spinner} {msg}") {
+        Ok(style) => {
+            pb.set_style(style);
+            pb.set_message("Retrieving current price...");
+            pb.enable_steady_tick(Duration::from_millis(100));
+        }
+        Err(error) => println!("Error: {}", error),
+    }
+
     let client = Client::new();
     let resp_price = client
         .get(&request_url_spot)
@@ -74,6 +87,10 @@ async fn get_coin_price(
         .await?
         .json::<CoinbasePrice>()
         .await?;
+
+    sleep(Duration::from_secs(1));
+
+    pb.finish_with_message("Current price retrieved");
 
     Ok(resp_price.data.amount)
 }
