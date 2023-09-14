@@ -1,6 +1,6 @@
 # cryptop
 
-Command Line Interface for getting cryptocurrency prices and information
+A user friendly CLI for getting cryptocurrency prices and information.
 
 ## Installation
 
