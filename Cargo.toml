@@ -1,9 +1,9 @@
 [package]
 name = "cryptop"
-version = "0.1.10"
+version = "0.1.11"
 edition = "2021"
-authors = ["Kadin Sayani <kadinsayani8@gmail.com>"]
-description = "Command Line Interface for getting cryptocurrency prices and information."
+authors = ["Kadin Sayani <me@kadinsayani.dev>"]
+description = "A user friendly CLI for getting cryptocurrency prices and information."
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/kadinsayani/cryptop"
